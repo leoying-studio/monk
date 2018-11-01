@@ -1,5 +1,5 @@
 import SuperClass from './super';
-import {ICountDown, timeType} from './interface';
+import {ICountDown, timeType, FreeObject} from './interface';
 class Utils extends SuperClass {
 
 	removeByIndexs<T>(collections: T[], indexs: number[]): T[] {
@@ -17,13 +17,14 @@ class Utils extends SuperClass {
 		return [...collections];
 	}
 
-	removeByValues<T, U extends T>(collections: T[], values: Array<U>, key?: string): T[] {
+	removeByValues<T>(collections: T[], values:Array<any>, key?:string): T[] {
 		let list = [...collections];
 		for (var i = 0; i < values.length; i++) {
 			let value = this.checkNullPointer(key) ? values[i][key] : values[i];
 			for (var j = 0; j < list.length; j++) {
-				let item = this.checkNullPointer(key) ? list[i][key] : list[i];
-				if (value === item) {
+				let item  = (list[i] as FreeObject);
+				let extItem = this.checkNullPointer(key) ? item[key] : item;
+				if (value === extItem) {
 					list.splice(j, 1);
 					j--;
 				}
@@ -48,7 +49,7 @@ class Utils extends SuperClass {
 		if (typeof endTime == "string" || typeof startTime == 'number') {
 			endTime = new Date(<number | string>endTime);
 		}
-		const countTime:number = (<number>endTime) - (<number>startTime) / 1000 ;
+		const countTime:number = (<number>endTime) - (<any>startTime) / 1000 ;
 		let day =Math.floor( countTime / 3600 / 24 );
 		let hour =Math.floor(( countTime / 3600  ) % 24);
 		let minutes = Math.floor( (countTime / 60 ) % 60 );

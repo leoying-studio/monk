@@ -7,5 +7,12 @@ interface ICountDown {
 
 type timeType = Date | string | number;
 
+interface IEvents {
+   [k: string]: any
+}
 
-export {ICountDown, timeType};
+interface FreeObject {
+	[k: string]: any
+}
+
+export {ICountDown, timeType, IEvents, FreeObject};

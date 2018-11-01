@@ -1,14 +1,15 @@
+import {IEvents} from './interface';
 abstract class SuperClass {
 
 	private _versions: number = 1.0;
-	private _events = {};
+	private _events: IEvents = {};
 
-	getVersions():number {
+	get versions():number {
 		return this._versions;
 	}
 
-	getEvents():any {
-		return this._events;
+	set versions(value: number) {
+		this._versions = value;
 	}
 
 	on(name: string, callback: () => void):void {
@@ -22,7 +23,7 @@ abstract class SuperClass {
 	emit(name: string, ...args:Array<any>):void {	
 		if (this._events[name]) {
 			let events = this._events[name];
-			events.forEach((callback) => {
+			events.forEach((callback: any) => {
 				callback(...args)
 			});
 		}
@@ -62,8 +63,6 @@ abstract class SuperClass {
 	abstract removeByIndexs<T>(collections: T[], indexs: number[]): T[];
 
 	abstract removeByValues<T, U extends T>(collections: T[], values: Array<U>, key?: string): T[]
-
-	abstract findIndexByAttr<T, U extends T>(collections: T[], key: string, item: U): number;
 }
 
 
