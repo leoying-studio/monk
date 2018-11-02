@@ -63,5 +63,3 @@ class Utils extends SuperClass {
 	}
 
 }
-
-
