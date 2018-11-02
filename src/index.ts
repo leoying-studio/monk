@@ -44,24 +44,76 @@ class Utils extends SuperClass {
 
 	countDown(startTime: timeType, endTime: timeType): ICountDown {
 		if (typeof startTime == "string" || typeof startTime == 'number') {
-			startTime = new Date(startTime);
+			startTime = new Date(<string | number>startTime);
 		}
 		if (typeof endTime == "string" || typeof startTime == 'number') {
 			endTime = new Date(<number | string>endTime);
 		}
-		const countTime:number = (<number>endTime) - (<any>startTime) / 1000 ;
+		const countTime:number = ((<any>endTime) - (<any>startTime)) / 1000 ;
 		let day =Math.floor( countTime / 3600 / 24 );
 		let hour =Math.floor(( countTime / 3600  ) % 24);
 		let minutes = Math.floor( (countTime / 60 ) % 60 );
 		let second = Math.floor( countTime  % 60 );
 		return {
-			day: day,
-			hour: hour,
-			minutes: minutes,
+			day,
+			hour,
+			minutes,
 			second: second
 		}
 	}
 
+	removeDuplicates<T>(collections: T[], key: string): T[] {
+		if (!collections.length) {
+			return collections;
+		}
+		let _list = [collections.shift()];
+		for (let i = 0; i < collections.length; i++) {
+			let item = this.getValueByKey(collections[i], key);
+			let inside =  _list.some(el => this.getValueByKey(el, key) === item);
+			if (!inside) {
+				_list.push(item);
+			}
+			collections.splice(i, 1);	
+		}
+		return _list;
+	}
+
+	getRandomScope(start: number, end: number ): number {
+		let length = end - start + 1;
+        let num = parseInt(<any>(Math.random() * (length) + end));
+        return num;
+	}
+
+	public validate = {
+		tel: (source: string): boolean => {
+			let regex = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/
+			return regex.test(source);
+		},
+		mobile: (source: string):boolean => {
+			var regex = /^((\(\d{3}\))|(\d{3}\-))?1\d{10}/;
+			return regex.test(source);
+		},
+		email: (source: string):boolean => {
+			let regex = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+			if(source.search(regex) != -1){
+				return true;
+			}
+			return false;
+		},
+		chines: (source: string): boolean => {
+			let regex = /^[\u4E00-\u9FA5]+$/;
+			return regex.test(source);
+		}
+	};
+
+	getRandomString(size: number): string {
+		return Math.random().toString(size);
+	}
+
+	getRandomStr(size: number): string {
+		return this.getRandomString(size);
+	}
+
 }
 
-(window as Window & ExtendsWindow).Utils = Utils;
+(window as ExtendsWindow).Utils = Utils;

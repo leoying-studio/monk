@@ -59,6 +59,21 @@ abstract class SuperClass {
 			}
 		}
 	}
+	/**
+	 * 判断值类型或者引用类型
+	 * @param any value 
+	 */
+	getValueType(value: any):boolean {
+		let type = typeof value;
+		if (type === 'object') {
+			return false;
+		}
+		return true;
+	}
+
+	getValueByKey(item: Partial<any>, key: string):any {
+		return key ? item[key] : item;
+	}
 
 	abstract removeByIndexs<T>(collections: T[], indexs: number[]): T[];
 

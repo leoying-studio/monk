@@ -15,7 +15,7 @@ interface FreeObject {
 	[k: string]: any
 }
 
-interface ExtendsWindow {
+interface ExtendsWindow extends Window {
 	Utils: any
 }
 
