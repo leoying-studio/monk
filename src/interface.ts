@@ -15,4 +15,8 @@ interface FreeObject {
 	[k: string]: any
 }
 
-export {ICountDown, timeType, IEvents, FreeObject};
+interface ExtendsWindow {
+	Utils: any
+}
+
+export {ICountDown, timeType, IEvents, FreeObject, ExtendsWindow};

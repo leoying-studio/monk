@@ -1,5 +1,5 @@
 import SuperClass from './super';
-import {ICountDown, timeType, FreeObject} from './interface';
+import {ICountDown, timeType, FreeObject, ExtendsWindow} from './interface';
 class Utils extends SuperClass {
 
 	removeByIndexs<T>(collections: T[], indexs: number[]): T[] {
@@ -63,3 +63,5 @@ class Utils extends SuperClass {
 	}
 
 }
+
+(window as Window & ExtendsWindow).Utils = Utils;
