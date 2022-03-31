@@ -17,7 +17,7 @@ class Utils extends SuperClass {
 		return [...collections];
 	}
 
-	removeByValues<T>(collections: T[], values:Array<any>, key?:string): T[] {
+	removeByValues<T, U>(collections: T[], values:Array<U>, key?:string): T[] {
 		let list = [...collections];
 		for (var i = 0; i < values.length; i++) {
 			let value = this.checkNullPointer(key) ? values[i][key] : values[i];
