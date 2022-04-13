@@ -1,3 +1,5 @@
+import { MergerSchemaCondction, ReturnMergerSource } from "../type/array";
+
 function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     for (var i = 0; i < indexs.length; i++) {
         for (var j = 0; j < source.length; j++) {
@@ -11,12 +13,14 @@ function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
 }
 
 
-function merger<T, U, V = any>(source: T[], key: string, targetKey: string, target: V):U[] {
+function merger<T>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
     const mergerSource = []
+    const findKey = "id" || schema.findKey
+    const targetKey = "list" || schema.assignKey
 
     const find = function(current) {
         return mergerSource.find(item => {
-            return item[key] === current[key]
+            return item[findKey] === current[findKey]
         })
     }
 
@@ -33,4 +37,9 @@ function merger<T, U, V = any>(source: T[], key: string, targetKey: string, targ
 }
 
 
-export {removeByIndexs, merger }
+function flatten() {    
+    
+}
+
+
+export {removeByIndexs, merger, flatten }

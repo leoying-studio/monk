@@ -1,0 +1,1 @@
+type KeyValuePair = Record<string, any>
