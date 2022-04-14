@@ -1,4 +1,4 @@
-import { MergerSchemaCondction, ReturnMergerSource } from "../type/array";
+import { MergerSchemaCondction, ReturnMergerSource } from "./type";
 
 function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     for (var i = 0; i < indexs.length; i++) {
@@ -27,9 +27,12 @@ function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaC
     source.forEach((item) => {
        const el = find(item)
        if (el) {
-          (el as Record<string, any>)[assignKey] = [...el[assignKey], item]
+          (el)[assignKey].push(item)
        } else {
-        mergedSource.push(item)
+        mergedSource.push({
+            ...item,
+            [assignKey]: []
+        })
        }
     })
 
