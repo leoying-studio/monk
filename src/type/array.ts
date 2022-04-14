@@ -3,4 +3,4 @@ export interface MergerSchemaCondction {
     assignKey?: string
 }
 
-export type ReturnMergerSource<T> = T & {[k: string]: T}
+export type ReturnMergerSource<T extends Record<string, any>> = T | T & {[k: string]: T[]}

@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-		"target": "es5",
-        "module": "amd",
+		"target": "esnext",
+        "module": "esnext",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,

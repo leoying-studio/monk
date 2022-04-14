@@ -6,4 +6,4 @@ const isInteger = function(value: number) {
 
 
 
-export default {isInteger }
+export {isInteger }

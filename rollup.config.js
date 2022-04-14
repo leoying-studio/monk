@@ -1,17 +1,27 @@
-
-import path from 'path'
-import resolve from 'rollup-plugin-node-resolve' // 依赖引用插件
-import commonjs from 'rollup-plugin-commonjs' // commonjs模块转换插件
-import { eslint } from 'rollup-plugin-eslint' // eslint插件
-import ts from 'rollup-plugin-typescript2'
+const path = require('path') 
+const resolve = require('rollup-plugin-node-resolve')  // 依赖引用插件
+const commonjs = require('rollup-plugin-commonjs')  // commonjs模块转换插件
+const typescript = require('rollup-plugin-typescript2')
+const babel = require("rollup-plugin-babel")
 const getPath = _path => path.resolve(__dirname, _path)
+const extensions = ['.js', '.ts', '.tsx']
 
 export default {
-    input: 'src/index.ts',
-    output: {
-        // 输出路径及文件名
-        file: 'dist/bundle.js',
-        // 输出格式
-        format: 'iife'
-      }
+    input: getPath("./src/index.ts"),
+    output: [
+     {
+        name: "gentle",
+        format: "umd",
+        file: "dist/main.umd.js",
+     }
+    ],
+    plugins: [
+      resolve(extensions),
+      commonjs(),
+      typescript(), // 会自动读取 文件tsconfig.json配置
+      babel({
+        exclude: 'node_modules/**', // 只编译我们的源代码,
+        extensions
+      }),
+    ]
 }

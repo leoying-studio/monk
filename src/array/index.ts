@@ -12,14 +12,13 @@ function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     return Array.from(source)
 }
 
+function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
+    const mergedSource:ReturnMergerSource<T>[] = []
+    const findKey =  schema.findKey || "id"
+    const assignKey =  schema.assignKey || "children"
 
-function merger<T>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
-    const mergerSource = []
-    const findKey = "id" || schema.findKey
-    const targetKey = "list" || schema.assignKey
-
-    const find = function(current) {
-        return mergerSource.find(item => {
+    const find = function(current: T) {
+        return mergedSource.find(item => {
             return item[findKey] === current[findKey]
         })
     }
@@ -27,13 +26,13 @@ function merger<T>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerS
     source.forEach((item) => {
        const el = find(item)
        if (el) {
-          el[targetKey] = [...el[targetKey] ]
+          (el as Record<string, any>)[assignKey] = [...el[assignKey], item]
        } else {
-         mergerSource.push(item)
+        mergedSource.push(item)
        }
     })
 
-    return mergerSource
+    return mergedSource
 }
 
 
