@@ -12,6 +12,7 @@ function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     return Array.from(source)
 }
 
+
 function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
     const mergedSource:ReturnMergerSource<T>[] = []
     const findKey =  schema.findKey || "id"
