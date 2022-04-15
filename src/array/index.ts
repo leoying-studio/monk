@@ -2,9 +2,11 @@ import { MergerSchemaCondction, ReturnMergerSource } from "./type";
 import {FIND_KEY, ASSIGN_KEY} from './constant'
 
 function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
-    for (var i = 0; i < indexs.length; i++) {
+    const pointers =  Array.from(indexs)
+    pointers.sort((a, b) => a - b)
+    for (var i = 0; i < pointers.length; i++) {
         for (var j = 0; j < source.length; j++) {
-            if (j === indexs[i]) {
+            if (j === pointers[i]) {
                 source.splice(j, 1);
                 j--;
             }
@@ -30,13 +32,12 @@ function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaC
        if (el) {
           (el)[assignKey].push(item)
        } else {
-        mergedSource.push({
-            ...item,
+        const newItem = Object.assign(item, {
             [assignKey]: []
         })
+        mergedSource.push(newItem)
        }
     })
-
     return mergedSource
 }
 
