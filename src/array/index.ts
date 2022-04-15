@@ -1,4 +1,5 @@
 import { MergerSchemaCondction, ReturnMergerSource } from "./type";
+import {FIND_KEY, ASSIGN_KEY} from './constant'
 
 function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     for (var i = 0; i < indexs.length; i++) {
@@ -15,8 +16,8 @@ function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
 
 function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
     const mergedSource:ReturnMergerSource<T>[] = []
-    const findKey =  schema.findKey || "id"
-    const assignKey =  schema.assignKey || "children"
+    const findKey =  schema.findKey || FIND_KEY
+    const assignKey =  schema.assignKey || ASSIGN_KEY
 
     const find = function(current: T) {
         return mergedSource.find(item => {
