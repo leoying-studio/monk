@@ -12,3 +12,7 @@ export function isEmptyObject(value: Record<string, any>) {
 
     return isEmpty
 }
+
+export function isUndef(value: any) {
+  return typeof value === 'undefined'
+}

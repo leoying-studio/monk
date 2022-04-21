@@ -1,9 +1,9 @@
-import {removeByIndexs, merger, flatten } from "./array/index"
+import {removeByIndexs, merger, classify } from "./array/index"
 import { isInteger } from "./numerical/index"
 
 export {
-	removeByIndexs, 
+	isInteger,
+	removeByIndexs,
 	merger,
-	flatten,
-	isInteger
+	classify
 }

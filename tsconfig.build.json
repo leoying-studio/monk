@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "target": "es2017",
+    "module": "es6",
+    "outDir": "./dist/.lib",
+    "allowJs": true,
+    "checkJs": false
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*",
+    "src/.nuclear"
+  ]
+}

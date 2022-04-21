@@ -1,1 +1,3 @@
-type KeyValuePair = Record<string, any>
+declare interface KeyValuePair<T = any> {
+    [k : string] : T
+} 

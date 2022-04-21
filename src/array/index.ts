@@ -1,8 +1,10 @@
-import { MergerSchemaCondction, ReturnMergerSource } from "./type";
+import { Condition, MergerSchemaCondction, ReturnMergerSource } from "./type";
 import {FIND_KEY, ASSIGN_KEY} from './constant'
+import { getScheamsValue } from "../object/index";
+import { isUndef } from "../.supporting/index";
 
-function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
-    const pointers =  Array.from(indexs)
+export function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
+    const pointers = Array.from(indexs)
     pointers.sort((a, b) => a - b)
     for (var i = 0; i < pointers.length; i++) {
         for (var j = 0; j < source.length; j++) {
@@ -15,8 +17,7 @@ function removeByIndexs<T>(source: T[], indexs: number[]):T[] {
     return Array.from(source)
 }
 
-
-function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
+export function merger<T extends Record<string, any>>(source: T[], schema:MergerSchemaCondction = {}):ReturnMergerSource<T>[] {
     const mergedSource:ReturnMergerSource<T>[] = []
     const findKey =  schema.findKey || FIND_KEY
     const assignKey =  schema.assignKey || ASSIGN_KEY
@@ -41,10 +42,25 @@ function merger<T extends Record<any, string>>(source: T[], schema:MergerSchemaC
     return mergedSource
 }
 
+export function classify<T, U extends string>(dataSource: T[], conds: Condition<T, U>[]) {    
+    let fieldStore: Record<U, T[]>
 
-function flatten() {    
-    
+    dataSource.forEach((item) => {
+        conds.forEach((cond) => {
+           const {field, value, targetFiled, schemas} = cond
+           if (item[field] !== value) {
+             return
+           } 
+           if (!Array.isArray(schemas)) {
+                fieldStore[targetFiled] = [...fieldStore[targetFiled], item]
+            } else {
+                const value = getScheamsValue(schemas, item)
+                if (!isUndef(value)) {
+                    fieldStore[targetFiled] = [...fieldStore[targetFiled], item]
+                }   
+            }
+        })
+    })
+
+    return fieldStore
 }
-
-
-export {removeByIndexs, merger, flatten }

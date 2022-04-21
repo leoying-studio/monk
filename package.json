@@ -2,12 +2,18 @@
   "name": "utils",
   "version": "1.0.0",
   "description": "utils",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "set NODE_ENV=developemnt&& rollup -c rollup.config.js -w",
-    "build": "rm -fr lib && set NODE_ENV=production&& rollup -c rollup.config.js"
+    "build:lib": "tsc --project ./tsconfig.build.json",
+    "build": "rm -fr lib && set NODE_ENV=production&& rollup -c rollup.config.js && yarn build:lib"
   },
+  "browser": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "main:h5": "dist/index.esm.js",
+  "source": "src/index.ts",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leoying-studio/ts-utils.git"
@@ -20,9 +26,15 @@
   "homepage": "https://github.com/leoying-studio/ts-utils#readme",
   "dependencies": {
     "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "babel-helpers": "^6.24.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-latest": "^6.24.1",
+    "core-js": "3",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-json": "^4.0.0",
